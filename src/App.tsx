@@ -3,11 +3,13 @@ import { useAllFilmsTestQuery } from './generated/graphql.ts'
 
 function App() {
   const { loading, error, data } = useAllFilmsTestQuery()
+
   const listItems = data?.allFilms?.edges?.map((film) => (
     <li className='font-bold' key={film?.node?.title}>
       {film?.node?.title}
     </li>
   ))
+
   return (
     <>
       {loading ? <p>Loading...</p> : <ul>{listItems}</ul>}
