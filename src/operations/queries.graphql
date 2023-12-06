@@ -1,0 +1,10 @@
+query AllFilmsTest {
+  allFilms {
+    edges {
+      node {
+        title
+      }
+    }
+  }
+}
+
