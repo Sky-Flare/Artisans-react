@@ -4,7 +4,9 @@ import { useAllFilmsTestQuery } from './generated/graphql.ts'
 function App() {
   const { loading, error, data } = useAllFilmsTestQuery()
   const listItems = data?.allFilms?.edges?.map((film) => (
-    <li key={film?.node?.title}>{film?.node?.title}</li>
+    <li className='font-bold' key={film?.node?.title}>
+      {film?.node?.title}
+    </li>
   ))
   return (
     <>
