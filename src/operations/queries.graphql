@@ -1,10 +1,6 @@
-query AllFilmsTest {
-  allFilms {
-    edges {
-      node {
-        title
-      }
-    }
+mutation SingIn($connectUser: ConnectUser!) {
+  signIn(ConnectUser: $connectUser) {
+    accessToken
   }
 }
 

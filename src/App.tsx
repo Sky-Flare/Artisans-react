@@ -1,19 +1,10 @@
 import './App.css'
-import { useAllFilmsTestQuery } from './generated/graphql.ts'
-
+import './fontawesome'
+import SignIn from './layout/SignIn.tsx'
 function App() {
-  const { loading, error, data } = useAllFilmsTestQuery()
-
-  const listItems = data?.allFilms?.edges?.map((film) => (
-    <li className='font-bold' key={film?.node?.title}>
-      {film?.node?.title}
-    </li>
-  ))
-
   return (
     <>
-      {loading ? <p>Loading...</p> : <ul>{listItems}</ul>}
-      {error && <p>Error :{error.graphQLErrors.map((e) => e.message)}</p>}
+      <SignIn />
     </>
   )
 }
