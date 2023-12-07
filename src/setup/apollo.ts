@@ -5,11 +5,10 @@ import { RetryLink } from '@apollo/client/link/retry'
 // const uri = 'https://swapi-graphql.netlify.app/.netlify/functions/index'
 const uri = 'http://localhost:3000/graphql'
 
-export let currentClient: ApolloClient<unknown> | undefined
 const getAuthToken = () => {
-  console.log('gettoken')
   return localStorage.getItem('token') || ''
 }
+
 export const client = new ApolloClient({
   link: setContext((_, { headers }) => {
     const accessToken = getAuthToken()

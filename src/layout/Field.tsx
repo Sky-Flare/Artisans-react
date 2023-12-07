@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react'
+
 type InputType = 'text' | 'password' | 'email'
 
 interface Props {
@@ -6,16 +8,11 @@ interface Props {
   name: InputType
   placeholder: string
   className?: string
-  onChange: (value: string) => void
+  onChange: (value: ChangeEvent<HTMLInputElement>) => void
 }
 
 const Field: React.FC<Props> = ({ value, type, name, placeholder, className, onChange }) => {
-  const handleChange = (evt: { target: { value: string } }) => {
-    onChange(evt.target.value)
-  }
-
   const inputId = `field-${name}`
-
   return (
     <div className={className}>
       <label htmlFor={inputId} className='field-label'>
@@ -28,7 +25,7 @@ const Field: React.FC<Props> = ({ value, type, name, placeholder, className, onC
         className='field-input'
         placeholder={placeholder}
         name={name}
-        onChange={handleChange}
+        onChange={onChange}
         required
       />
     </div>

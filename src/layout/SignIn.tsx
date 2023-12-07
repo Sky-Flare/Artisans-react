@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import Field from './Field'
 import { Role, useSingInMutation } from '../generated/graphql.ts'
 
@@ -10,10 +10,10 @@ function SignIn() {
   const [errors, setErrors] = useState('')
 
   const handleInputChange = (
-    value: string,
+    value: ChangeEvent<HTMLInputElement>,
     setter: React.Dispatch<React.SetStateAction<string>>,
   ) => {
-    setter(value)
+    setter(value.target.value)
     setErrors('')
   }
 
