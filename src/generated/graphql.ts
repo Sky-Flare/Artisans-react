@@ -393,6 +393,11 @@ export type SingInMutationVariables = Exact<{
 
 export type SingInMutation = { __typename?: 'Mutation', signIn?: { __typename?: 'LoginResponse', accessToken: string } | null };
 
+export type MeArtisanQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeArtisanQuery = { __typename?: 'Query', meArtisan?: { __typename?: 'Artisan', email: string, firstName: string, id: number, lastName: string } | null };
+
 
 export const SingInDocument = gql`
     mutation SingIn($connectUser: ConnectUser!) {
@@ -427,3 +432,45 @@ export function useSingInMutation(baseOptions?: Apollo.MutationHookOptions<SingI
 export type SingInMutationHookResult = ReturnType<typeof useSingInMutation>;
 export type SingInMutationResult = Apollo.MutationResult<SingInMutation>;
 export type SingInMutationOptions = Apollo.BaseMutationOptions<SingInMutation, SingInMutationVariables>;
+export const MeArtisanDocument = gql`
+    query MeArtisan {
+  meArtisan {
+    email
+    firstName
+    id
+    lastName
+  }
+}
+    `;
+
+/**
+ * __useMeArtisanQuery__
+ *
+ * To run a query within a React component, call `useMeArtisanQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeArtisanQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeArtisanQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeArtisanQuery(baseOptions?: Apollo.QueryHookOptions<MeArtisanQuery, MeArtisanQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MeArtisanQuery, MeArtisanQueryVariables>(MeArtisanDocument, options);
+      }
+export function useMeArtisanLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeArtisanQuery, MeArtisanQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MeArtisanQuery, MeArtisanQueryVariables>(MeArtisanDocument, options);
+        }
+export function useMeArtisanSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<MeArtisanQuery, MeArtisanQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<MeArtisanQuery, MeArtisanQueryVariables>(MeArtisanDocument, options);
+        }
+export type MeArtisanQueryHookResult = ReturnType<typeof useMeArtisanQuery>;
+export type MeArtisanLazyQueryHookResult = ReturnType<typeof useMeArtisanLazyQuery>;
+export type MeArtisanSuspenseQueryHookResult = ReturnType<typeof useMeArtisanSuspenseQuery>;
+export type MeArtisanQueryResult = Apollo.QueryResult<MeArtisanQuery, MeArtisanQueryVariables>;

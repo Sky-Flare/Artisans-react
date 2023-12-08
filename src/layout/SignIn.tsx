@@ -2,13 +2,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import Field from './Field'
 import { Role, useSingInMutation } from '../generated/graphql.ts'
+import { useAppDispatch } from '../setup/hooks.ts'
+import { setToken } from '../stores/user.ts'
 
 function SignIn() {
   const [singInMutation, { loading, error }] = useSingInMutation({})
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState('')
-
+  const dispatch = useAppDispatch()
   const handleInputChange = (
     value: ChangeEvent<HTMLInputElement>,
     setter: React.Dispatch<React.SetStateAction<string>>,
@@ -40,6 +42,7 @@ function SignIn() {
         },
       }).then(async ({ data }) => {
         if (data?.signIn?.accessToken) {
+          dispatch(setToken(data?.signIn?.accessToken))
           localStorage.setItem('token', data?.signIn?.accessToken)
         }
       })

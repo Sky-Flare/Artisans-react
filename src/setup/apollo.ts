@@ -15,7 +15,7 @@ export const client = new ApolloClient({
     return {
       headers: {
         ...headers,
-        authorization: accessToken ? `Bearer ${accessToken}` : '',
+        authorization: accessToken ? `${accessToken}` : '',
       },
     }
   }).concat(

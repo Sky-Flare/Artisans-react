@@ -4,3 +4,12 @@ mutation SingIn($connectUser: ConnectUser!) {
   }
 }
 
+query MeArtisan {
+  meArtisan {
+    email
+    firstName
+    id
+    lastName
+  }
+}
+
