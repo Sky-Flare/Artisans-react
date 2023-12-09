@@ -3,30 +3,32 @@ import './App.css'
 import './fontawesome'
 import SignIn from './layout/SignIn.tsx'
 import { useAppDispatch, useAppSelector } from './setup/hooks.ts'
-import { setUser } from './stores/user.ts'
+import { setToken } from './stores/user.ts'
 import { useMeArtisanQuery } from './generated/graphql.ts'
 
 function App() {
-  const tokenLocalStorage = localStorage.getItem('token')
   const dispatch = useAppDispatch()
-  const token = useAppSelector((state) => state.user.token)
-  // Utilise un état local pour activer/désactiver la requête
+  useEffect(() => {
+    const tokenLocalStorage = localStorage.getItem('token')
+    if (tokenLocalStorage) {
+      dispatch(setToken(tokenLocalStorage))
+    }
+  })
+  const user = useAppSelector((state) => state.user)
   const [isQueryEnabled, setQueryEnabled] = useState(false)
 
   useEffect(() => {
-    if (token) {
+    if (user.token) {
       setQueryEnabled(true)
     }
-  }, [token])
+  }, [user.token])
 
-  const { data } = useMeArtisanQuery({ skip: !isQueryEnabled })
-
-  if (tokenLocalStorage && data?.meArtisan) {
-    dispatch(setUser(data.meArtisan))
-  }
+  const { loading, data } = useMeArtisanQuery({ skip: !isQueryEnabled })
 
   return (
     <>
+      {loading && <div>loading...</div>}
+      {data?.meArtisan?.email ? <div>{data.meArtisan.email}</div> : null}
       <SignIn />
     </>
   )
