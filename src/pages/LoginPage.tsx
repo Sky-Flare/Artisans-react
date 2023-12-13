@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import Field from './Field'
 import { Role, useSingInMutation } from '../generated/graphql.ts'
 import { useAppDispatch } from '../setup/hooks.ts'
 import { setToken } from '../stores/user.ts'
+import Field from '../components/Field.tsx'
 
-function SignIn() {
+export const LoginPage = () => {
   const [singInMutation, { loading, error }] = useSingInMutation({})
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -77,5 +77,3 @@ function SignIn() {
     </div>
   )
 }
-
-export default SignIn

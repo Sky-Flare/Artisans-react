@@ -1,37 +1,34 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import './fontawesome'
-import SignIn from './layout/SignIn.tsx'
-import { useAppDispatch, useAppSelector } from './setup/hooks.ts'
-import { setToken } from './stores/user.ts'
-import { useMeArtisanQuery } from './generated/graphql.ts'
+import { createBrowserRouter } from 'react-router-dom'
+import { PublicLayout } from './layout/PublicLayout.tsx'
+import { HomePage } from './pages/HomePage.tsx'
+import { LoginPage } from './pages/LoginPage.tsx'
+import { ProtectedLayout } from './layout/ProtectedLayout.tsx'
+import { ProfilePage } from './pages/ProfilePage.tsx'
+import ErrorPage from './pages/ErrorPage.tsx'
 
-function App() {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    const tokenLocalStorage = localStorage.getItem('token')
-    if (tokenLocalStorage) {
-      dispatch(setToken(tokenLocalStorage))
-    }
-  })
-  const user = useAppSelector((state) => state.user)
-  const [isQueryEnabled, setQueryEnabled] = useState(false)
-
-  useEffect(() => {
-    if (user.token) {
-      setQueryEnabled(true)
-    }
-  }, [user.token])
-
-  const { loading, data } = useMeArtisanQuery({ skip: !isQueryEnabled })
-
-  return (
-    <>
-      {loading && <div>loading...</div>}
-      {data?.meArtisan?.email ? <div>{data.meArtisan.email}</div> : null}
-      <SignIn />
-    </>
-  )
-}
-
-export default App
+export const router = createBrowserRouter([
+  {
+    element: <PublicLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: '/login',
+        element: <LoginPage />,
+      },
+    ],
+  },
+  {
+    path: 'private',
+    element: <ProtectedLayout />,
+    children: [
+      {
+        path: 'profile',
+        element: <ProfilePage />,
+      },
+    ],
+  },
+])
