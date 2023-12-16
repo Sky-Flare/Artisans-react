@@ -1,11 +1,11 @@
 import { ChangeEvent } from 'react'
 
-type InputType = 'text' | 'password' | 'email'
+export type InputType = 'text' | 'password' | 'email' | 'number'
 
 interface Props {
-  value: string
+  value: string | number
   type: InputType
-  name: InputType
+  name: string
   placeholder: string
   className?: string
   onChange: (value: ChangeEvent<HTMLInputElement>) => void

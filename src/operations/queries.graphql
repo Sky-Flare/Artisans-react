@@ -4,6 +4,12 @@ mutation SingIn($connectUser: ConnectUser!) {
   }
 }
 
+mutation SignUp($createArtisanInput: CreateArtisanInput!) {
+  signUpArtisan(CreateArtisanInput: $createArtisanInput) {
+    accessToken
+  }
+}
+
 query MeArtisan {
   meArtisan {
     email

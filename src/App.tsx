@@ -5,6 +5,7 @@ import { LoginPage } from './pages/LoginPage.tsx'
 import { ProtectedLayout } from './layout/ProtectedLayout.tsx'
 import { ProfilePage } from './pages/ProfilePage.tsx'
 import ErrorPage from './pages/ErrorPage.tsx'
+import { RegisterPage } from './pages/RegisterPage.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginPage />,
+      },
+      {
+        path: '/register',
+        element: <RegisterPage />,
       },
     ],
   },

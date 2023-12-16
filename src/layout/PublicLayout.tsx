@@ -19,10 +19,19 @@ export const PublicLayout = () => {
 
   return (
     <div>
-      <nav>
-        <Link to='/'>Home</Link>
-        <Link to='/login'>Login</Link>
-      </nav>
+      <header className='flex justify-between p-4'>
+        <Link to='/'>Logo</Link>
+        <nav>
+          <ul className='gap-2 flex'>
+            <li>
+              <Link to='/login'>Connexion</Link>
+            </li>
+            <li>
+              <Link to='/register'>Inscription</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
       <Outlet />
     </div>
   )
