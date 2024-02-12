@@ -7,16 +7,22 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     "prettier",
+    'plugin:tailwindcss/recommended'
   ],
+  settings: {
+    react: {
+      version: "detect"
+    }
+  },
   ignorePatterns: ['dist', '.eslintrc.cjs', 'graphql.ts'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'unused-imports'],
   rules: {
+    'tailwindcss/no-custom-classname': ['off'],
+    "unused-imports/no-unused-imports": "error",
     "react/react-in-jsx-scope": "off",
-    "no-console":"warn",
     "camelcase": "error",
     "spaced-comment": "error",
-    "quotes": ["error", "single"],
     "no-duplicate-imports": "error",
     "react/jsx-uses-react": "off",
     "react/prop-types": "off",

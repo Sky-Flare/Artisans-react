@@ -14,15 +14,15 @@ export const PublicLayout = () => {
 
   const { token } = useAppSelector((state) => state.user)
   if (token) {
-    return <Navigate to='/private/profile' />
+    return <Navigate to='/private/dashboard' />
   }
 
   return (
     <div>
-      <header className='flex justify-between p-4'>
+      <header className='flex justify-between       p-4'>
         <Link to='/'>Logo</Link>
         <nav>
-          <ul className='gap-2 flex'>
+          <ul className='flex gap-2'>
             <li>
               <Link to='/login'>Connexion</Link>
             </li>

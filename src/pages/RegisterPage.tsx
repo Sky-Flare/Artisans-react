@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { useSignUpMutation } from '../generated/graphql.ts'
 import Field from '../components/Field.tsx'
 import { setToken } from '../stores/user.ts'
@@ -35,6 +35,9 @@ export const RegisterPage = () => {
 
   const handleInputChange = (name: string, value: string) => {
     setFormState((prevState) => ({ ...prevState, [name]: value, errors: [] }))
+    if (name === 'password') {
+      isStrongPassword(value)
+    }
   }
 
   const isValidEmail = (email: string): boolean => {
@@ -67,11 +70,6 @@ export const RegisterPage = () => {
 
     return missingTypes
   }
-  useEffect(() => {
-    if (formState.password) {
-      isStrongPassword(formState.password)
-    }
-  }, [formState.password])
   function isStrongPassword(psw: string): boolean {
     const missingTypes = missingPasswordTypes(psw)
     const isLengthValid = psw.length >= 8
@@ -133,14 +131,14 @@ export const RegisterPage = () => {
   }
 
   return (
-    <div className='flex flex-col h-full justify-center items-center'>
-      <form onSubmit={(e) => submit(e)} className='shadow-md rounded-default p-8'>
+    <div className='flex h-full flex-col items-center justify-center'>
+      <form onSubmit={(e) => submit(e)} className='rounded-default p-8 shadow-md'>
         {Object.entries(formState)
           .filter((fs) => fs[0] !== 'errors')
           .map(([name, value]) => (
             <Field
               key={name}
-              className='flex flex-col mb-4'
+              className='mb-4 flex flex-col'
               type={name.includes('password') ? 'password' : 'text'}
               name={name}
               value={value as string}
@@ -149,7 +147,7 @@ export const RegisterPage = () => {
             />
           ))}
         <button type='submit'>
-          S'inscrire
+          S&apos;inscrire
           {loading && <FontAwesomeIcon className='ml-4' icon={['fas', 'spinner']} spin />}
         </button>
         {formState.errors.length > 0 && (

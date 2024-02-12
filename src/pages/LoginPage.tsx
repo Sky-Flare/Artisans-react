@@ -50,10 +50,10 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className='flex flex-col h-full justify-center items-center'>
-      <form onSubmit={(e) => submit(e)} className='shadow-md rounded-default p-8'>
+    <div className='flex h-full flex-col items-center justify-center'>
+      <form onSubmit={(e) => submit(e)} className='rounded-default p-8 shadow-md'>
         <Field
-          className='flex flex-col mb-4'
+          className='mb-4 flex flex-col'
           type='email'
           name='email'
           value={email}

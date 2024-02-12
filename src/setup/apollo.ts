@@ -25,8 +25,7 @@ export const client = new ApolloClient({
           // handle errors
         }
         if (networkError) {
-          // eslint-disable-next-line no-console
-          console.debug(
+          console.error(
             `[GraphQL Network error]: ${networkError} during ${operation.operationName}`,
           )
         }

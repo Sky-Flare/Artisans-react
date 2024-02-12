@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { userSlice } from '../stores/user.ts'
 import { menuSlice } from '../stores/menu.ts'
+import { shopSlice } from '../stores/shop.ts'
+import { productSlice } from '../stores/product.ts'
 export const store = configureStore({
   reducer: {
     user: userSlice.reducer,
     menu: menuSlice.reducer,
+    shop: shopSlice.reducer,
+    product: productSlice.reducer,
   },
   devTools: true,
 })

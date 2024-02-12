@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAppDispatch, useAppSelector } from '../setup/hooks.ts'
 import { setOpenMenu } from '../stores/menu.ts'
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core'
+import { Link } from 'react-router-dom'
 
 type IconDefinition = [IconPrefix, IconName]
 const ICONS: Record<string, IconDefinition> = {
@@ -14,17 +15,20 @@ const ICONS: Record<string, IconDefinition> = {
 interface PropsMenuItem {
   icon: IconDefinition
   label: string
+  to: string
   open: boolean
 }
-const MenuItem: React.FC<PropsMenuItem> = ({ icon, label, open }) => {
+const MenuItem: React.FC<PropsMenuItem> = ({ icon, to, label, open }) => {
   return (
     <li
-      className={`cursor-pointer items-center flex py-4 gap-2 ${
+      className={`flex cursor-pointer items-center gap-2 py-4 ${
         open ? 'justify-start' : 'justify-center'
       }`}
     >
-      <FontAwesomeIcon className='text-xl w-8' icon={icon} />
-      {open && <span>{label}</span>}
+      <Link to={to}>
+        <FontAwesomeIcon className='w-8 text-xl' icon={icon} />
+        {open && <span>{label}</span>}
+      </Link>
     </li>
   )
 }
@@ -38,26 +42,26 @@ function Menu() {
 
   return (
     <div
-      className={`fixed flex flex-col justify-between h-screen bg-blue-500 transition-width duration-100 ${
+      className={`transition-width sticky top-0 flex h-screen flex-col justify-between bg-blue-500 duration-100 ${
         open ? 'w-[200px]' : 'w-[50px]'
       }`}
     >
       <div>
         <div className='cursor-pointer'>logo</div>
         <ul>
-          <MenuItem icon={ICONS.SHOP} label='Mes magasins' open={open} />
-          <MenuItem icon={ICONS.BASKET} label='Mes produits' open={open} />
-          <MenuItem icon={ICONS.LIST} label='Mes commandes' open={open} />
+          <MenuItem to={'/private/shops'} icon={ICONS.SHOP} label='Mes magasins' open={open} />
+          <MenuItem to={'/private/products'} icon={ICONS.BASKET} label='Mes produits' open={open} />
+          <MenuItem to={'/private/orders'} icon={ICONS.LIST} label='Mes commandes' open={open} />
         </ul>
       </div>
       <div>
-        <MenuItem icon={ICONS.GEAR} label='Paramétre' open={open} />
+        <MenuItem to={'/private/settings'} icon={ICONS.GEAR} label='Paramétre' open={open} />
         <div
-          className='cursor-pointer w-full flex items-center justify-center py-4'
+          className='flex w-full cursor-pointer items-center justify-center py-4'
           onClick={toggleMenu}
         >
           <FontAwesomeIcon
-            className={`text-xl w-8 transition duration-500 ${open ? 'rotate-180' : 'rotate-0'}`}
+            className={`w-8 text-xl transition duration-500 ${open ? 'rotate-180' : 'rotate-0'}`}
             icon={ICONS.ANGLES_RIGHT}
           />
         </div>

@@ -3,9 +3,11 @@ import { PublicLayout } from './layout/PublicLayout.tsx'
 import { HomePage } from './pages/HomePage.tsx'
 import { LoginPage } from './pages/LoginPage.tsx'
 import { ProtectedLayout } from './layout/ProtectedLayout.tsx'
-import { ProfilePage } from './pages/ProfilePage.tsx'
+import { DashboardPage } from './pages/DashboardPage.tsx'
 import ErrorPage from './pages/ErrorPage.tsx'
 import { RegisterPage } from './pages/RegisterPage.tsx'
+import { ShopsPage } from './pages/ShopsPage.tsx'
+import { ShopPage } from './pages/ShopPage.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +33,30 @@ export const router = createBrowserRouter([
     element: <ProtectedLayout />,
     children: [
       {
-        path: 'profile',
-        element: <ProfilePage />,
+        path: 'dashboard',
+        element: <DashboardPage />,
+      },
+      {
+        path: 'shops',
+        element: <ShopsPage />,
+        children: [
+          {
+            path: ':id',
+            element: <ShopPage />,
+          },
+        ],
+      },
+      {
+        path: 'products',
+        element: <DashboardPage />,
+      },
+      {
+        path: 'orders',
+        element: <DashboardPage />,
+      },
+      {
+        path: 'settings',
+        element: <DashboardPage />,
       },
     ],
   },

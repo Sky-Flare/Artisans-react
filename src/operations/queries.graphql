@@ -16,6 +16,73 @@ query MeArtisan {
     firstName
     id
     lastName
+    shops {
+      ...shop
+    }
+  }
+}
+
+query Shop($id: Float!) {
+  shop(shopId: $id) {
+    ...shop
+  }
+}
+
+query Products($filtersProducts: ProductsFilters!) {
+  products(filtersProducts: $filtersProducts) {
+   ...product
+  }
+}
+
+fragment product on Product {
+  id
+  name
+  price
+  description
+  picture
+  categoriesProducts {
+   ...categoryProduct
+  }
+}
+
+fragment categoryProduct on Category_product {
+    id
+    name
+    picture
+}
+
+query AllCategoriesShop {
+  categories_shop {
+    name
+    id
+    picture
+  }
+}
+
+fragment categoryShop on Category_shop {
+    id
+    name
+    picture
+}
+
+query AllMyShops {
+  meArtisan {
+    shops {
+      ...shop
+    }
+  }
+}
+
+fragment shop on Shop {
+  id
+  name
+  zipCode
+  address
+  city
+  enabled
+  description
+  categoriesShops {
+    ...categoryShop
   }
 }
 
