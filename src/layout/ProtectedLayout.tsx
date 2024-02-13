@@ -9,6 +9,7 @@ export const ProtectedLayout = () => {
   const dispatch = useAppDispatch()
 
   const { data } = useMeArtisanQuery({ errorPolicy: 'all' })
+  console.log(data)
   dispatch(setShops(data?.meArtisan?.shops || []))
   const outlet = useOutlet()
   // const { open } = useAppSelector((state) => state.menu)
@@ -20,7 +21,9 @@ export const ProtectedLayout = () => {
   return (
     <div className='flex'>
       <Menu />
-      <div className={'relative transition-all duration-100'}>{outlet}</div>
+      {data && data.meArtisan && (
+        <div className={'relative w-full transition-all duration-100'}>{outlet}</div>
+      )}
     </div>
   )
 }

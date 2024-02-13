@@ -43,7 +43,7 @@ function Menu() {
   return (
     <div
       className={`transition-width sticky top-0 flex h-screen flex-col justify-between bg-blue-500 duration-100 ${
-        open ? 'w-[200px]' : 'w-[50px]'
+        open ? 'w-[200px] min-w-[200px]' : 'w-[50px]'
       }`}
     >
       <div>

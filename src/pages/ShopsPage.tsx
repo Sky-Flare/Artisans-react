@@ -6,7 +6,7 @@ export const ShopsPage = () => {
   const { id } = useParams()
   const { shops } = useAppSelector((state) => state.shop)
   return !id ? (
-    <div className='container mx-auto p-6'>
+    <div className='mx-auto p-6'>
       <h1 className='mb-8 text-3xl font-bold'>Shops Page</h1>
       <div className='-mx-4 flex flex-wrap'>
         {shops &&
@@ -41,6 +41,6 @@ export const ShopsPage = () => {
       </div>
     </div>
   ) : (
-    <div>{outlet}</div>
+    <>{outlet}</>
   )
 }
