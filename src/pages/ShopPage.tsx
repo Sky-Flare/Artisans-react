@@ -43,6 +43,14 @@ export const ShopPage = () => {
                 : b.name.localeCompare(a.name)
             } else if (sortBy === 'price') {
               return sortOrder === 'asc' ? a.price - b.price : b.price - a.price
+            } else if (sortBy === 'cat') {
+              return sortOrder === 'asc'
+                ? a.categoriesProducts?.[0].name.localeCompare(
+                    b.categoriesProducts?.[0].name ?? '',
+                  ) ?? 1
+                : b.categoriesProducts?.[0].name.localeCompare(
+                    a.categoriesProducts?.[0].name ?? '',
+                  ) ?? 0
             }
             return 0
           })
@@ -50,8 +58,8 @@ export const ShopPage = () => {
             <div key={product.id} className='flex bg-white'>
               <div className='flex flex-1 items-center justify-center rounded p-2'>
                 <img
-                  className='size-[70px] rounded'
-                  src={'https://picsum.photos/200'}
+                  className='z-20 size-[70px] rounded'
+                  src={product.picture}
                   alt={product.description}
                 />
                 <div className='flex flex-1 flex-col justify-center p-2'>
@@ -100,7 +108,9 @@ export const ShopPage = () => {
               <div className='flex-1' onClick={() => handleSort('price')}>
                 Price {sortBy === 'price' && (sortOrder === 'asc' ? '▲' : '▼')}
               </div>
-              <div className='flex-1'>Categories</div>
+              <div className='flex-1' onClick={() => handleSort('cat')}>
+                Categories {sortBy === 'cat' && (sortOrder === 'asc' ? '▲' : '▼')}
+              </div>
             </div>
             {renderProducts()}
           </div>
