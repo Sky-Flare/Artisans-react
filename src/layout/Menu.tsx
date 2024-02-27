@@ -22,7 +22,7 @@ const MenuItem: React.FC<PropsMenuItem> = ({ icon, to, label, open }) => {
   return (
     <NavLink
       className={({ isActive }) =>
-        isActive ? 'bg-blue-500 text-white block' : ' hover:bg-slate-200 block'
+        isActive ? 'bg-blue-500 text-white block' : 'hover:bg-slate-200 block'
       }
       to={to}
     >
