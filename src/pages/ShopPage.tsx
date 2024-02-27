@@ -26,14 +26,14 @@ export const ShopPage = () => {
   const { products } = useAppSelector((state) => state.product)
   const { data: allMyShops } = useAllMyShopsQuery({ errorPolicy: 'all' })
 
-  const handleSort = (column: 'name' | 'price') => {
+  const handleSort = (column: 'name' | 'price' | 'cat') => {
     setSortBy(column)
     setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'))
   }
 
   const renderProducts = () => {
     return (
-      <div>
+      <div className='cursor-pointer'>
         {products
           ?.slice()
           .sort((a, b) => {
@@ -56,15 +56,15 @@ export const ShopPage = () => {
           })
           .map((product) => (
             <div key={product.id} className='flex bg-white'>
-              <div className='flex flex-1 items-center justify-center rounded p-2'>
+              <div className='flex flex-[2_2_0%] items-center justify-center rounded p-2'>
                 <img
                   className='z-20 size-[70px] rounded'
                   src={product.picture}
                   alt={product.description}
                 />
                 <div className='flex flex-1 flex-col justify-center p-2'>
-                  <span>{product.name}</span>
-                  <span>{product.description}</span>
+                  <span className='overflow-hidden text-ellipsis'>{product.name}</span>
+                  <span className='overflow-hidden text-ellipsis'>{product.description}</span>
                 </div>
               </div>
 
@@ -102,13 +102,13 @@ export const ShopPage = () => {
         {products?.length > 0 ? (
           <div className='w-full '>
             <div className='flex  font-bold'>
-              <div className='flex-1' onClick={() => handleSort('name')}>
+              <div className='flex-[2_2_0%] cursor-pointer' onClick={() => handleSort('name')}>
                 Name {sortBy === 'name' && (sortOrder === 'asc' ? '▲' : '▼')}
               </div>
-              <div className='flex-1' onClick={() => handleSort('price')}>
+              <div className='flex-1 cursor-pointer' onClick={() => handleSort('price')}>
                 Price {sortBy === 'price' && (sortOrder === 'asc' ? '▲' : '▼')}
               </div>
-              <div className='flex-1' onClick={() => handleSort('cat')}>
+              <div className='flex-1 cursor-pointer' onClick={() => handleSort('cat')}>
                 Categories {sortBy === 'cat' && (sortOrder === 'asc' ? '▲' : '▼')}
               </div>
             </div>

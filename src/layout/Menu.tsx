@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAppDispatch, useAppSelector } from '../setup/hooks.ts'
 import { setOpenMenu } from '../stores/menu.ts'
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 type IconDefinition = [IconPrefix, IconName]
 const ICONS: Record<string, IconDefinition> = {
@@ -20,16 +20,19 @@ interface PropsMenuItem {
 }
 const MenuItem: React.FC<PropsMenuItem> = ({ icon, to, label, open }) => {
   return (
-    <li
-      className={`flex cursor-pointer items-center gap-2 py-4 ${
-        open ? 'justify-start' : 'justify-center'
-      }`}
+    <NavLink
+      className={({ isActive }) =>
+        isActive ? 'bg-blue-500 text-white block' : ' hover:bg-slate-200 block'
+      }
+      to={to}
     >
-      <Link to={to}>
+      <li
+        className={`flex cursor-pointer items-center gap-2 py-4 ${open ? 'justify-start' : 'justify-center'}`}
+      >
         <FontAwesomeIcon className='w-8 text-xl' icon={icon} />
         {open && <span>{label}</span>}
-      </Link>
-    </li>
+      </li>
+    </NavLink>
   )
 }
 
@@ -42,8 +45,8 @@ function Menu() {
 
   return (
     <div
-      className={`transition-width sticky top-0 flex h-screen flex-col justify-between bg-blue-500 duration-100 ${
-        open ? 'w-[200px] min-w-[200px]' : 'w-[50px]'
+      className={`transition-width sticky top-0 flex h-screen flex-col justify-between text-slate-700 shadow-lg duration-100 ${
+        open ? 'w-[200px] min-w-[200px]' : 'w-[50px] min-w-[50px]'
       }`}
     >
       <div>
@@ -61,7 +64,7 @@ function Menu() {
           onClick={toggleMenu}
         >
           <FontAwesomeIcon
-            className={`w-8 text-xl transition duration-500 ${open ? 'rotate-180' : 'rotate-0'}`}
+            className={`w-8 text-xl transition duration-100 ${open ? 'rotate-180' : 'rotate-0'}`}
             icon={ICONS.ANGLES_RIGHT}
           />
         </div>
